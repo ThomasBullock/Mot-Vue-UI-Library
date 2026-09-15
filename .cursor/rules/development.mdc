@@ -1,0 +1,21 @@
+---
+description: Communication, development conventions, and agent tooling for this repo
+alwaysApply: true
+---
+
+# Development
+
+## Communication style
+
+Be extremely concise. Sacrifice grammar for concision. Applies to all interactions and commit messages. Avoid flattery.
+
+## Development style
+
+- **DRY.** No duplicated logic, markup, or literals. Before adding code, check whether it already exists — reuse or extract instead of copying. Repeated template blocks → extract a component. Repeated reactive logic → extract a composable (`src/composables/`).
+- **No magic values.** Any literal used in more than one place, or that carries meaning (config, labels, keys, thresholds, testid domains), goes in `src/constants/` (e.g. `ui.ts` for shared UI tokens and enums).
+- Match surrounding code: `<script setup>`, existing naming, comment density, and idioms.
+- **Prefer `null` over `undefined`** for an intentional "no value" (prop defaults, computed fallbacks, attr bindings — Vue removes the attr for either). Avoid `undefined` as an explicit value.
+
+## Playwright / browser MCP
+
+**Close the browser when done.** Do not leave Playwright or browser MCP sessions open after a task. Always call close / tear down the browser when verification or automation finishes.

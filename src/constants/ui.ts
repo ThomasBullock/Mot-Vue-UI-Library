@@ -64,15 +64,9 @@ export const INPUT_BASE_CLASSES = [
 ].join(' ');
 
 // Native `<input type="…">` values supported by BaseInput.
-export const INPUT_TYPES = [
-  'text',
-  'email',
-  'password',
-  'number',
-  'tel',
-  'url',
-  'search',
-] as const;
+export const INPUT_TYPES = ['text', 'email', 'password', 'number', 'tel', 'url', 'search'] as const;
 export const INPUT_TYPE_DEFAULT = 'text' satisfies InputType;
 
 export type InputType = (typeof INPUT_TYPES)[number];
+
+export const LABEL_BASE_CLASSES = 'text-sm font-medium text-grey-900';

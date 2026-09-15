@@ -16,5 +16,10 @@ const { type = INPUT_TYPE_DEFAULT } = defineProps<{
 
 const model = defineModel<string | number>({ default: "" });
 
+/* Emits
+Native events (@blur, @focus, @change, @input) do not need defineEmits.
+defineModel gives us emit: update:modelValue 
+*/
+
 const attrs = useAttrs();
 </script>

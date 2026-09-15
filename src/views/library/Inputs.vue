@@ -6,23 +6,43 @@
     </p>
 
     <h3>Inputs</h3>
-    <div class="flex justify-start gap-2">
-      <BaseInput class="mt-4" id="foo" v-model="textInput" />
-      <BaseInput
-        class="mt-4"
-        id="input-invalid"
-        v-model="invalidInput"
-        placeholder="Error"
-        aria-invalid="true"
-      />
+    <div class="mt-4 flex max-w-sm flex-col gap-4">
+      <div>
+        <BaseLabel for="library-input-text">Text</BaseLabel>
+        <BaseInput id="library-input-text" v-model="textInput" class="mt-1" />
+      </div>
+
+      <div>
+        <BaseLabel for="library-input-invalid">With error</BaseLabel>
+        <BaseInput
+          id="library-input-invalid"
+          v-model="invalidInput"
+          class="mt-1"
+          placeholder="Error"
+          aria-invalid="true"
+        />
+      </div>
+
+      <div>
+        <BaseLabel for="library-input-search" class="sr-only">Search</BaseLabel>
+        <BaseInput
+          id="library-input-search"
+          v-model="searchInput"
+          class="mt-1"
+          type="search"
+          placeholder="Search…"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import BaseInput from "@/components/ui/BaseInput.vue";
+import BaseLabel from "@/components/ui/BaseLabel.vue";
 import { ref } from "vue";
 
 const textInput = ref("");
 const invalidInput = ref("");
+const searchInput = ref("");
 </script>
