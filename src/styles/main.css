@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+
+/*
+ * Brand color palettes (Tailwind v4 CSS-first theme).
+ *
+ * Values are OKLCH; the trailing comment is the source sRGB hex. All values
+ * round-trip losslessly back to their hex, so there is no visual change vs.
+ * the raw hex — OKLCH is used for perceptual uniformity and to match the
+ * OKLCH color model of Tailwind's defaults (and shadcn, used for components).
+ *
+ *   primary  — yellow brand. `bg-primary` (DEFAULT) is the CTA/button color
+ *              #FFE857 (== step 400); step 200 (#FFFEA8) is the light-yellow bg.
+ *   grey     — warm-neutral charcoal. Doubles as the "secondary" role
+ *              (secondary/dark elements use grey-900 / grey-950).
+ *   success  — emerald, held cooler than the yellow so it reads distinctly.
+ *   danger   — warm red tuned to pair with the yellow.
+ *
+ * These extend Tailwind's default palette (they do not replace it); `grey` is
+ * a new namespace alongside the built-in `gray`. Dark mode uses the media-based
+ * `dark:` variant (prefers-color-scheme), which Tailwind v4 provides by default.
+ */
+@theme {
+  /* primary — yellow brand */
+  --color-primary: oklch(0.9243 0.1615 100.19); /* #FFE857 */
+  --color-primary-50: oklch(0.994 0.0184 103.41); /* #FFFEF0 */
+  --color-primary-100: oklch(0.9869 0.0441 104.42); /* #FFFDDB */
+  --color-primary-200: oklch(0.9787 0.1069 107.65); /* #FFFEA8 */
+  --color-primary-300: oklch(0.9547 0.1231 102.99); /* #FFF48F */
+  --color-primary-400: oklch(0.9243 0.1615 100.19); /* #FFE857 */
+  --color-primary-500: oklch(0.8832 0.1783 95.33); /* #FDD617 */
+  --color-primary-600: oklch(0.7913 0.1613 85.01); /* #EAB106 */
+  --color-primary-700: oklch(0.6363 0.1315 75.91); /* #B87E0A */
+  --color-primary-800: oklch(0.5134 0.1077 69.49); /* #8E5A0B */
+  --color-primary-900: oklch(0.4262 0.0877 67.43); /* #6E440C */
+  --color-primary-950: oklch(0.3061 0.0607 64.86); /* #442808 */
+
+  /* grey — warm-neutral charcoal (also fills the "secondary" role: grey-900/950) */
+  --color-grey-50: oklch(0.9845 0.0026 106.45); /* #FAFAF8 */
+  --color-grey-100: oklch(0.9693 0.004 106.47); /* #F5F5F2 */
+  --color-grey-200: oklch(0.9213 0.0068 97.36); /* #E6E5E0 */
+  --color-grey-300: oklch(0.8383 0.0112 95.19); /* #CCCAC2 */
+  --color-grey-400: oklch(0.7221 0.0075 88.66); /* #A7A5A0 */
+  --color-grey-500: oklch(0.5893 0.0107 93.65); /* #7F7D76 */
+  --color-grey-600: oklch(0.5002 0.0115 87.52); /* #66635C */
+  --color-grey-700: oklch(0.4063 0.0106 84.59); /* #4C4943 */
+  --color-grey-800: oklch(0.3058 0.0076 84.59); /* #312F2B */
+  --color-grey-900: oklch(0.2404 0.0064 78.2); /* #211F1C */
+  --color-grey-950: oklch(0.1961 0.0042 84.59); /* #161513 */
+
+  /* success — emerald, held cooler than the yellow */
+  --color-success-50: oklch(0.9796 0.02 169.36); /* #ECFDF6 */
+  --color-success-100: oklch(0.9503 0.0501 166.14); /* #D0FAE7 */
+  --color-success-200: oklch(0.9023 0.094 163.85); /* #A3F3CE */
+  --color-success-300: oklch(0.8405 0.1408 161.79); /* #67E7AE */
+  --color-success-400: oklch(0.7644 0.1618 159.97); /* #2ED18E */
+  --color-success-500: oklch(0.6833 0.1525 159.59); /* #12B577 */
+  --color-success-600: oklch(0.5965 0.137 158.81); /* #039760 */
+  --color-success-700: oklch(0.5085 0.1147 159.86); /* #02794E */
+  --color-success-800: oklch(0.4295 0.0941 160.72); /* #055F3E */
+  --color-success-900: oklch(0.3758 0.0798 162.11); /* #054E34 */
+  --color-success-950: oklch(0.2853 0.0586 163.66); /* #033322 */
+
+  /* danger — warm red tuned to pair with the yellow (was "error") */
+  --color-danger-50: oklch(0.9722 0.0122 29.87); /* #FEF3F1 */
+  --color-danger-100: oklch(0.9283 0.0318 29.76); /* #FCE0DB */
+  --color-danger-200: oklch(0.8605 0.065 30.26); /* #F9C2B8 */
+  --color-danger-300: oklch(0.768 0.111 29.42); /* #F2988A */
+  --color-danger-400: oklch(0.6764 0.1626 30.41); /* #EA6A57 */
+  --color-danger-500: oklch(0.6041 0.1957 30.21); /* #DE4230 */
+  --color-danger-600: oklch(0.5352 0.1843 30.54); /* #C1301F */
+  --color-danger-700: oklch(0.4601 0.1601 30.23); /* #9E2417 */
+  --color-danger-800: oklch(0.389 0.1312 29.66); /* #7C1D14 */
+  --color-danger-900: oklch(0.3434 0.1097 29.21); /* #661A13 */
+  --color-danger-950: oklch(0.2382 0.0749 29.97); /* #3B0C07 */
+
+  /* semantic tokens — mirror shadcn's --ring aliasing (a neutral focus ring
+     that stays visible against every coloured variant; brand yellow would not) */
+  --color-ring: var(--color-grey-400); /* #A7A5A0 */
+
+  /* One-shot sweep along the top border of the totals block on recalculation.
+     Two alternate iterations = left→right then right→left, 0.45s each pass.
+     Opacity fades in on the forward leg and out on the return leg so there's
+     a soft appear/disappear only at the left-edge start and finish. */
+  --animate-beam-sweep: beam-sweep 0.45s ease-in-out 0s 2 alternate;
+  @keyframes beam-sweep {
+    from {
+      transform: translateX(0);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    to {
+      transform: translateX(200%);
+      opacity: 1;
+    }
+  }
+}
+
+/* Gradient blob that sweeps left→right→left along the top border strip.
+   Fades to transparent at both edges so there's no hard clip artefact. */
+@utility recalc-beam {
+  background: linear-gradient(to right, transparent, var(--color-primary-400), transparent);
+}
