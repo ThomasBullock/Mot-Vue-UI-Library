@@ -1,6 +1,8 @@
 # mot-vue-ui-lib
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 component library: primitives, design tokens, and a live showcase. Tailwind CSS 4, Vue Router, Vitest.
+
+Shared control tokens live in `src/constants/ui.ts`. Base components (`BaseButton`, `BaseInput`, `BaseCurrencyInput`, `BaseLabel`) compose those tokens. Run the app and open `/library` to browse colours, buttons, inputs, and slot patterns.
 
 ## Recommended IDE Setup
 
@@ -41,14 +43,32 @@ npm run dev
 npm run build
 ```
 
+### Preview Production Build
+
+```sh
+npm run preview
+```
+
+### Type-Check Only
+
+```sh
+npm run type-check
+```
+
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Lint with [oxlint](https://oxc.rs/docs/guide/usage/linter) and [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
+```
+
+### Format with [oxfmt](https://oxc.rs/docs/guide/usage/formatter)
+
+```sh
+npm run format
 ```
