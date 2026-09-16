@@ -77,6 +77,18 @@
      that stays visible against every coloured variant; brand fill would not) */
   --color-ring: var(--color-grey-400); /* #A3A5AA */
 
+  /* Button micro-skeuomorph: overhead light (y-only). Outer `--shadow-*`
+     detaches the face; `--inset-shadow-*` is the bevel (top highlight +
+     bottom occlusion). Pressed keeps the same 1px rims and light direction —
+     just quieter, and the outer lift drops so it reads as seated. Split
+     namespaces so Tailwind emits both utilities and they compose with
+     `ring-*` via --tw-shadow / --tw-inset-shadow. */
+  --shadow-btn-raised: 0 1px 2px 0 rgb(0 0 0 / 0.12);
+  --inset-shadow-btn-raised:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.125), inset 0 -1px 0 0 rgb(0 0 0 / 0.125);
+  --inset-shadow-btn-pressed:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.06), inset 0 -1px 0 0 rgb(0 0 0 / 0.07);
+
   /* One-shot sweep along the top border of the totals block on recalculation.
      Two alternate iterations = left→right then right→left, 0.45s each pass.
      Opacity fades in on the forward leg and out on the return leg so there's

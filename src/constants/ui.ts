@@ -19,9 +19,11 @@ export const CONTROL_FOCUS_CLASSES =
 export const CONTROL_DISABLED_CLASSES = 'disabled:opacity-50 disabled:pointer-events-none';
 
 // Button base = shared control tokens + button-specific layout (padding, no-wrap
-// label, subtle lift). shadcn rhythm: h-9, px-4, text-sm, font-medium.
+// label, raised/pressed dual-inset shadows). shadcn rhythm: h-9, px-4, text-sm,
+// font-medium. Shadows live here (not per-variant) so every fill gets the same
+// overhead light model; `transition` covers fill + box-shadow together.
 export const BUTTON_BASE_CLASSES = [
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 font-medium shadow-xs transition-colors select-none',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 font-medium shadow-btn-raised inset-shadow-btn-raised active:shadow-none active:inset-shadow-btn-pressed transition select-none',
   CONTROL_BASE_CLASSES,
   CONTROL_SIZE_CLASSES,
   CONTROL_FOCUS_CLASSES,
@@ -32,12 +34,12 @@ export const BUTTON_BASE_CLASSES = [
 // so all variants render at identical height.
 export const BUTTON_VARIANT_CLASSES = {
   primary:
-    'bg-primary-700 text-white border-primary-700 hover:bg-primary-800 active:bg-primary-900',
-  secondary: 'bg-grey-800 text-white border-grey-800 hover:bg-grey-900 active:bg-grey-950',
+    'bg-primary-600 text-white border-primary-700 hover:bg-primary-700 active:bg-primary-800',
+  secondary: 'bg-grey-800 text-white border-grey-900 hover:bg-grey-900 active:bg-grey-950',
   'secondary-outline': 'bg-white text-black border-black hover:bg-grey-100 active:bg-grey-200',
   success:
-    'bg-success-300 text-success-950 border-success-300 hover:bg-success-400 active:bg-success-500',
-  danger: 'bg-danger-600 text-white border-danger-600 hover:bg-danger-700 active:bg-danger-800',
+    'bg-success-300 text-success-950 border-success-500 hover:bg-success-400 active:bg-success-500',
+  danger: 'bg-danger-600 text-white border-danger-700 hover:bg-danger-700 active:bg-danger-800',
 };
 
 // Single source for the prop validator, the design-page loop, and the tests.
