@@ -8,46 +8,46 @@
  * the raw hex — OKLCH is used for perceptual uniformity and to match the
  * OKLCH color model of Tailwind's defaults (and shadcn, used for components).
  *
- *   primary  — yellow brand. `bg-primary` (DEFAULT) is the CTA/button color
- *              #FFE857 (== step 400); step 200 (#FFFEA8) is the light-yellow bg.
- *   grey     — warm-neutral charcoal. Doubles as the "secondary" role
+ *   primary  — indigo-blue brand. `bg-primary` (DEFAULT) is the CTA/button color
+ *              #1E21D4 (== step 700); step 200 (#CADBFF) is the light wash.
+ *   grey     — cool-neutral charcoal. Doubles as the "secondary" role
  *              (secondary/dark elements use grey-900 / grey-950).
- *   success  — emerald, held cooler than the yellow so it reads distinctly.
- *   danger   — warm red tuned to pair with the yellow.
+ *   success  — emerald, held distinct from the cool blue.
+ *   danger   — warm red, complementary contrast to the cool brand.
  *
  * These extend Tailwind's default palette (they do not replace it); `grey` is
  * a new namespace alongside the built-in `gray`. Dark mode uses the media-based
  * `dark:` variant (prefers-color-scheme), which Tailwind v4 provides by default.
  */
 @theme {
-  /* primary — yellow brand */
-  --color-primary: oklch(0.9243 0.1615 100.19); /* #FFE857 */
-  --color-primary-50: oklch(0.994 0.0184 103.41); /* #FFFEF0 */
-  --color-primary-100: oklch(0.9869 0.0441 104.42); /* #FFFDDB */
-  --color-primary-200: oklch(0.9787 0.1069 107.65); /* #FFFEA8 */
-  --color-primary-300: oklch(0.9547 0.1231 102.99); /* #FFF48F */
-  --color-primary-400: oklch(0.9243 0.1615 100.19); /* #FFE857 */
-  --color-primary-500: oklch(0.8832 0.1783 95.33); /* #FDD617 */
-  --color-primary-600: oklch(0.7913 0.1613 85.01); /* #EAB106 */
-  --color-primary-700: oklch(0.6363 0.1315 75.91); /* #B87E0A */
-  --color-primary-800: oklch(0.5134 0.1077 69.49); /* #8E5A0B */
-  --color-primary-900: oklch(0.4262 0.0877 67.43); /* #6E440C */
-  --color-primary-950: oklch(0.3061 0.0607 64.86); /* #442808 */
+  /* primary — indigo-blue brand */
+  --color-primary: oklch(0.4204 0.2539 267.84); /* #1E21D4 */
+  --color-primary-50: oklch(0.972 0.0132 262.38); /* #F1F6FF */
+  --color-primary-100: oklch(0.9413 0.0279 263.43); /* #E2ECFF */
+  --color-primary-200: oklch(0.8903 0.053 265.3); /* #CADBFF */
+  --color-primary-300: oklch(0.81 0.0947 265.8); /* #A4C0FF */
+  --color-primary-400: oklch(0.7056 0.153 266.46); /* #749BFF */
+  --color-primary-500: oklch(0.5891 0.2232 266.99); /* #426CFF */
+  --color-primary-600: oklch(0.5002 0.2496 267.48); /* #2A46EE */
+  --color-primary-700: oklch(0.4204 0.2539 267.84); /* #1E21D4 */
+  --color-primary-800: oklch(0.3498 0.2005 269.9); /* #1C1BA0 */
+  --color-primary-900: oklch(0.2904 0.1543 271.07); /* #161776 */
+  --color-primary-950: oklch(0.2205 0.1003 271.68); /* #0D1148 */
 
-  /* grey — warm-neutral charcoal (also fills the "secondary" role: grey-900/950) */
-  --color-grey-50: oklch(0.9845 0.0026 106.45); /* #FAFAF8 */
-  --color-grey-100: oklch(0.9693 0.004 106.47); /* #F5F5F2 */
-  --color-grey-200: oklch(0.9213 0.0068 97.36); /* #E6E5E0 */
-  --color-grey-300: oklch(0.8383 0.0112 95.19); /* #CCCAC2 */
-  --color-grey-400: oklch(0.7221 0.0075 88.66); /* #A7A5A0 */
-  --color-grey-500: oklch(0.5893 0.0107 93.65); /* #7F7D76 */
-  --color-grey-600: oklch(0.5002 0.0115 87.52); /* #66635C */
-  --color-grey-700: oklch(0.4063 0.0106 84.59); /* #4C4943 */
-  --color-grey-800: oklch(0.3058 0.0076 84.59); /* #312F2B */
-  --color-grey-900: oklch(0.2404 0.0064 78.2); /* #211F1C */
-  --color-grey-950: oklch(0.1961 0.0042 84.59); /* #161513 */
+  /* grey — cool-neutral charcoal (also fills the "secondary" role: grey-900/950) */
+  --color-grey-50: oklch(0.9849 0.0029 264.54); /* #F9FAFC */
+  --color-grey-100: oklch(0.9695 0.0045 258.32); /* #F3F5F8 */
+  --color-grey-200: oklch(0.9218 0.0071 268.54); /* #E3E5EA */
+  --color-grey-300: oklch(0.8383 0.012 264.5); /* #C6CAD2 */
+  --color-grey-400: oklch(0.7218 0.0075 268.52); /* #A3A5AA */
+  --color-grey-500: oklch(0.5895 0.0112 267.3); /* #7A7D84 */
+  --color-grey-600: oklch(0.4995 0.0117 267.27); /* #60636A */
+  --color-grey-700: oklch(0.4057 0.0103 271.16); /* #47494F */
+  --color-grey-800: oklch(0.3057 0.0073 274.73); /* #2E2F33 */
+  --color-grey-900: oklch(0.2395 0.0059 271.17); /* #1E1F22 */
+  --color-grey-950: oklch(0.1955 0.0043 264.47); /* #141517 */
 
-  /* success — emerald, held cooler than the yellow */
+  /* success — emerald, held distinct from the cool blue */
   --color-success-50: oklch(0.9796 0.02 169.36); /* #ECFDF6 */
   --color-success-100: oklch(0.9503 0.0501 166.14); /* #D0FAE7 */
   --color-success-200: oklch(0.9023 0.094 163.85); /* #A3F3CE */
@@ -60,7 +60,7 @@
   --color-success-900: oklch(0.3758 0.0798 162.11); /* #054E34 */
   --color-success-950: oklch(0.2853 0.0586 163.66); /* #033322 */
 
-  /* danger — warm red tuned to pair with the yellow (was "error") */
+  /* danger — warm red, complementary contrast to the cool brand (was "error") */
   --color-danger-50: oklch(0.9722 0.0122 29.87); /* #FEF3F1 */
   --color-danger-100: oklch(0.9283 0.0318 29.76); /* #FCE0DB */
   --color-danger-200: oklch(0.8605 0.065 30.26); /* #F9C2B8 */
@@ -74,8 +74,8 @@
   --color-danger-950: oklch(0.2382 0.0749 29.97); /* #3B0C07 */
 
   /* semantic tokens — mirror shadcn's --ring aliasing (a neutral focus ring
-     that stays visible against every coloured variant; brand yellow would not) */
-  --color-ring: var(--color-grey-400); /* #A7A5A0 */
+     that stays visible against every coloured variant; brand fill would not) */
+  --color-ring: var(--color-grey-400); /* #A3A5AA */
 
   /* One-shot sweep along the top border of the totals block on recalculation.
      Two alternate iterations = left→right then right→left, 0.45s each pass.

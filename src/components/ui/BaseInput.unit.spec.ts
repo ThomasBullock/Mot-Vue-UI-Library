@@ -26,7 +26,7 @@ describe('BaseInput', () => {
     expect(getByRole('textbox')).toHaveAttribute('type', 'text');
   });
 
-  it('lets the caller override the type (static type sits before v-bind)', () => {
+  it('lets the caller override the type', () => {
     const { getByRole } = render({ props: { type: 'email' } });
 
     expect(getByRole('textbox')).toHaveAttribute('type', 'email');

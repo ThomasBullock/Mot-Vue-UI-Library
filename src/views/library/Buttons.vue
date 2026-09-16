@@ -8,9 +8,10 @@
     <h3>Buttons</h3>
     <div class="flex justify-start gap-2">
       <BaseButton class="mt-4" id="foo">Primary Button</BaseButton>
-      <BaseButton variant="secondary" class="mt-4" id="foo">Primary Button</BaseButton>
-      <BaseButton variant="secondary-outline" class="mt-4" id="foo">Primary Button</BaseButton>
-      <BaseButton variant="danger" class="mt-4" id="foo">Primary Button</BaseButton>
+      <BaseButton variant="secondary" class="mt-4" id="foo">Secondary Button</BaseButton>
+      <BaseButton variant="secondary-outline" class="mt-4" id="foo">Secondary Outline</BaseButton>
+      <BaseButton variant="success" class="mt-4" id="foo">Success Button</BaseButton>
+      <BaseButton variant="danger" class="mt-4" id="foo">Danger Button</BaseButton>
 
       <BaseButton class="mt-4" id="foo" disabled>Disabled Button</BaseButton>
     </div>

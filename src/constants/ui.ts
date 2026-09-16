@@ -11,7 +11,7 @@ export const CONTROL_BASE_CLASSES = 'rounded-md border';
 // wider than inputs) so it lives in each component's own layout string.
 export const CONTROL_SIZE_CLASSES = 'h-9 text-sm';
 // shadcn-style focus: a soft, semi-transparent 3px halo (ring, no offset) in a
-// neutral tone (--color-ring ≈ grey-400). Neutral, not brand yellow, so it stays
+// neutral tone (--color-ring ≈ grey-400). Neutral, not brand fill, so it stays
 // visible against every variant's fill. The variants keep their own resting
 // border on focus (no border-tint) — a deliberate design choice for this palette.
 export const CONTROL_FOCUS_CLASSES =
@@ -31,11 +31,12 @@ export const BUTTON_BASE_CLASSES = [
 // Colour axis. Every variant carries a border (self-coloured where invisible)
 // so all variants render at identical height.
 export const BUTTON_VARIANT_CLASSES = {
-  primary: 'bg-primary-400 text-black border-black hover:bg-primary-500 active:bg-primary-600',
+  primary:
+    'bg-primary-700 text-white border-primary-700 hover:bg-primary-800 active:bg-primary-900',
   secondary: 'bg-grey-800 text-white border-grey-800 hover:bg-grey-900 active:bg-grey-950',
   'secondary-outline': 'bg-white text-black border-black hover:bg-grey-100 active:bg-grey-200',
   success:
-    'bg-success-400 text-black border-success-400 hover:bg-success-500 active:bg-success-600',
+    'bg-success-300 text-success-950 border-success-300 hover:bg-success-400 active:bg-success-500',
   danger: 'bg-danger-600 text-white border-danger-600 hover:bg-danger-700 active:bg-danger-800',
 };
 
@@ -70,3 +71,14 @@ export const INPUT_TYPE_DEFAULT = 'text' satisfies InputType;
 export type InputType = (typeof INPUT_TYPES)[number];
 
 export const LABEL_BASE_CLASSES = 'text-sm font-medium text-grey-900';
+
+// Currency input = <BaseInput> with a "$" overlaid on the left. The field is the
+// positioning context; the "$" is an absolutely-positioned, non-interactive
+// adornment; the input gains left padding to clear it and tabular figures so
+// grouping separators don't shift width. BaseInput is composed, not modified.
+export const CURRENCY_FIELD_WRAPPER_CLASSES = 'relative';
+// `pt-px` is a 1px optical nudge: the "$" glyph in the system font renders a
+// touch high against the lining figures, so this drops it to sit centred.
+export const CURRENCY_ADORNMENT_CLASSES =
+  'pointer-events-none absolute inset-y-0 left-3 flex items-center pt-px text-sm text-grey-500';
+export const CURRENCY_INPUT_CLASSES = 'pl-7 tabular-nums';

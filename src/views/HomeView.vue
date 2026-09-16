@@ -7,7 +7,7 @@
     </p>
     <RouterLink
       to="/library"
-      class="mt-6 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-grey-950 transition-colors hover:bg-primary-500"
+      class="mt-6 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-800"
     >
       Browse the library
     </RouterLink>

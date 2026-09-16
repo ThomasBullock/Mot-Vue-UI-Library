@@ -33,6 +33,11 @@
           placeholder="Search…"
         />
       </div>
+
+      <div>
+        <BaseLabel for="salary" class="sr-only">Salary</BaseLabel>
+        <BaseCurrencyInput id="salary" v-model="salary" class="mt-1" />
+      </div>
     </div>
   </div>
 </template>
@@ -40,9 +45,11 @@
 <script setup lang="ts">
 import BaseInput from "@/components/ui/BaseInput.vue";
 import BaseLabel from "@/components/ui/BaseLabel.vue";
+import BaseCurrencyInput from "@/components/ui/BaseCurrencyInput.vue";
 import { ref } from "vue";
 
 const textInput = ref("");
 const invalidInput = ref("");
 const searchInput = ref("");
+const salary = ref(null);
 </script>

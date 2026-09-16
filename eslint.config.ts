@@ -6,6 +6,9 @@ import pluginOxlint from 'eslint-plugin-oxlint';
 import skipFormatting from 'eslint-config-prettier/flat';
 import pluginVueA11y from 'eslint-plugin-vuejs-accessibility';
 
+const A11Y_LABEL_COMPONENTS = ['BaseLabel'];
+const A11Y_CONTROL_COMPONENTS = ['BaseInput', 'BaseCurrencyInput'];
+
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
 // configureVueProject({ scriptLangs: ['ts', 'tsx'] })
@@ -31,5 +34,42 @@ export default defineConfigWithVueTs(
 
   skipFormatting,
 
-  pluginVueA11y.configs['flat/recommended'],
+  ...pluginVueA11y.configs['flat/recommended'],
+
+  // Primitives can't associate label↔control in their own SFC; callers do.
+  // Register them so usage sites are what these two rules check.
+  {
+    name: 'app/a11y-custom-components',
+    files: ['**/*.vue'],
+    rules: {
+      'vuejs-accessibility/form-control-has-label': [
+        'error',
+        {
+          labelComponents: A11Y_LABEL_COMPONENTS,
+          controlComponents: A11Y_CONTROL_COMPONENTS,
+        },
+      ],
+      'vuejs-accessibility/label-has-for': [
+        'error',
+        {
+          components: A11Y_LABEL_COMPONENTS,
+          controlComponents: A11Y_CONTROL_COMPONENTS,
+          // Sibling <BaseLabel for> + <BaseInput id>, or wrapping. Not both.
+          required: { some: ['nesting', 'id'] },
+        },
+      ],
+    },
+  },
+  {
+    name: 'app/a11y-primitives',
+    files: [
+      'src/components/ui/BaseInput.vue',
+      'src/components/ui/BaseLabel.vue',
+      'src/components/ui/BaseCurrencyInput.vue',
+    ],
+    rules: {
+      'vuejs-accessibility/form-control-has-label': 'off',
+      'vuejs-accessibility/label-has-for': 'off',
+    },
+  },
 );
