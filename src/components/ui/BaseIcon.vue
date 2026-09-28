@@ -1,5 +1,10 @@
 <template>
-  <span v-if="glyph" class="inline-flex shrink-0" :style="hostStyle" v-bind="a11yAttrs">
+  <span
+    v-if="glyph"
+    class="inline-flex shrink-0 items-center justify-center leading-none"
+    :style="hostStyle"
+    v-bind="a11yAttrs"
+  >
     <component :is="glyph" />
   </span>
 </template>
