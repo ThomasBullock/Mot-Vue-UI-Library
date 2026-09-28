@@ -36,6 +36,12 @@ const router = createRouter({
           meta: { title: 'Design: Inputs | Mot UI' },
         },
         {
+          path: 'icons',
+          name: 'Icons',
+          component: () => import('@/views/library/Icons.vue'),
+          meta: { title: 'Design: Icons | Mot UI' },
+        },
+        {
           path: 'slots',
           name: 'Slots',
           component: () => import('@/views/library/Slots.vue'),

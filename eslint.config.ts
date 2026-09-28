@@ -20,7 +20,13 @@ export default defineConfigWithVueTs(
     files: ['**/*.{vue,ts,mts,tsx}'],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  globalIgnores([
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    // IcoMoon dumps: single-word names, not app components.
+    'src/components/icons/**',
+  ]),
 
   ...pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
@@ -58,6 +64,14 @@ export default defineConfigWithVueTs(
           required: { some: ['nesting', 'id'] },
         },
       ],
+    },
+  },
+  {
+    name: 'app/library-pages',
+    files: ['src/views/library/*.vue'],
+    rules: {
+      // Showcase pages are named after the thing they show (Buttons, Icons).
+      'vue/multi-word-component-names': 'off',
     },
   },
   {
