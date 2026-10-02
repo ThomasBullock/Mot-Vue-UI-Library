@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { STEP_PROGRESS_PARTIAL, STEPPER_VISIBLE_COUNT } from '@/constants/ux-blocks';
-import { canShiftWindow, stepProgressPercent, windowStartForActive } from '@/utils/stepper';
+import {
+  canShiftWindow,
+  stepProgressPercent,
+  stepSrLabel,
+  windowStartForActive,
+} from '@/utils/stepper';
 
 describe('stepProgressPercent', () => {
   it('returns 0 for an empty list', () => {
@@ -99,5 +104,11 @@ describe('canShiftWindow', () => {
 
   it('blocks prev at the start', () => {
     expect(canShiftWindow(0, -1, total, visible)).toBe(false);
+  });
+});
+
+describe('stepSrLabel', () => {
+  it('reads position then status', () => {
+    expect(stepSrLabel('current', 1, 4)).toBe('Step 2 of 4, Current');
   });
 });

@@ -1,128 +1,144 @@
 <template>
-  <div :class="STEPPER_FRAME">
-    <div class="mx-auto flex max-w-4xl items-center gap-8">
-      <BaseButton
-        variant="secondary"
-        aria-label="Previous steps"
-        :disabled="!canPrev"
-        @click="navigatePrev"
-      >
-        <BaseIcon name="backward" mode="mono" :size="NAV_ICON_SIZE" />
-      </BaseButton>
+  <nav :aria-label="ariaLabel" class="mx-auto flex max-w-4xl items-center gap-8">
+    <BaseButton
+      variant="secondary"
+      aria-label="Previous steps"
+      :disabled="!canPrev"
+      @click="shiftWindow(-1)"
+    >
+      <BaseIcon name="backward" mode="mono" :size="NAV_ICON_SIZE" />
+    </BaseButton>
 
-      <div class="flex flex-1 flex-col gap-4">
-        <div class="flex items-center justify-center md:hidden">
-          <div class="flex-1 text-center font-medium" :class="titleClass(visibleSteps[0] ?? null)">
-            {{ visibleSteps[0]?.title }}
-          </div>
-        </div>
-
-        <div class="hidden items-center justify-between md:flex">
-          <div
-            v-for="step in visibleSteps"
-            :key="step.id"
-            class="flex-1 text-center font-medium"
-            :class="titleClass(step)"
+    <div class="flex flex-1 flex-col gap-4">
+      <ol class="sr-only">
+        <li v-for="(step, index) in steps" :key="step.id" :aria-current="ariaCurrentOf(index)">
+          <StepTrigger
+            :clickable="false"
+            :sr-label="stepSrLabel(statusOf(index), index, steps.length)"
           >
             {{ step.title }}
-          </div>
-        </div>
+          </StepTrigger>
+        </li>
+      </ol>
 
-        <div class="h-1.5 overflow-hidden rounded-lg bg-grey-200 dark:bg-grey-700">
-          <div
-            class="h-full rounded-lg"
-            :class="STEP_COMPLETED_TRACK"
-            :style="{ width: `${progressPercentage}%` }"
-            :data-testid="UX_BLOCKS_TESTID.progressFill"
-          />
+      <div aria-hidden="true" class="flex items-center justify-between">
+        <div
+          v-for="(step, offset) in visibleSteps"
+          :key="step.id"
+          class="flex-1 text-center font-medium"
+          :class="[
+            STEP_TITLE_BY_STATUS[statusOf(windowStart + offset)],
+            { 'hidden md:block': offset > 0 },
+          ]"
+        >
+          {{ step.title }}
         </div>
       </div>
 
-      <BaseButton
-        variant="secondary"
-        aria-label="Next steps"
-        :disabled="!canNext"
-        @click="navigateNext"
+      <div
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        :aria-valuenow="Math.round(progress)"
+        :aria-valuetext="progressText"
+        class="h-1.5 overflow-hidden rounded-lg"
+        :class="STEP_PENDING_TRACK"
       >
-        <BaseIcon name="forward" mode="mono" :size="NAV_ICON_SIZE" />
-      </BaseButton>
+        <div
+          class="h-full rounded-lg motion-safe:transition-[width]"
+          :class="STEP_COMPLETED_TRACK"
+          :style="{ width: `${progress}%` }"
+          :data-testid="UX_BLOCKS_TESTID.progressFill"
+        />
+      </div>
     </div>
-  </div>
+
+    <BaseButton
+      variant="secondary"
+      aria-label="Next steps"
+      :disabled="!canNext"
+      @click="shiftWindow(1)"
+    >
+      <BaseIcon name="forward" mode="mono" :size="NAV_ICON_SIZE" />
+    </BaseButton>
+  </nav>
 </template>
 
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseIcon from '@/components/ui/BaseIcon.vue';
+import StepTrigger from '@/components/ux-blocks/steppers/StepTrigger.vue';
+import { useStepper } from '@/composables/useStepper';
 import { ICON_SIZE_PRESETS } from '@/constants/icons';
 import {
-  STEPPER_FRAME,
+  STEPPER_ARIA_LABEL_DEFAULT,
   STEPPER_VISIBLE_COUNT,
   STEP_COMPLETED_TRACK,
+  STEP_PENDING_TRACK,
   STEP_PROGRESS_PARTIAL,
-  STEP_TITLE_ACTIVE,
-  STEP_TITLE_COMPLETED,
-  STEP_TITLE_PENDING,
+  STEP_STATUS_LABEL,
+  STEP_TITLE_BY_STATUS,
   UX_BLOCKS_TESTID,
-  type ProgressStep,
+  type StepId,
+  type StepperProps,
 } from '@/constants/ux-blocks';
-import { canShiftWindow, stepProgressPercent, windowStartForActive } from '@/utils/stepper';
-import { computed, ref } from 'vue';
+import { canShiftWindow, stepPosition, stepSrLabel, windowStartForActive } from '@/utils/stepper';
+import { computed, ref, watch } from 'vue';
+
+// Display-only: the window arrows page the visible titles, not the v-model.
+const {
+  steps,
+  finished = false,
+  ariaLabel = STEPPER_ARIA_LABEL_DEFAULT,
+  visibleCount = STEPPER_VISIBLE_COUNT,
+  partialFill = STEP_PROGRESS_PARTIAL,
+} = defineProps<
+  Omit<StepperProps, 'clickable' | 'linear'> & {
+    visibleCount?: number;
+    partialFill?: number;
+  }
+>();
+
+const model = defineModel<StepId | null>({ default: null });
+
+const { activeIndex, statusOf, ariaCurrentOf, progressPercent } = useStepper(() => steps, model, {
+  finished: () => finished,
+});
 
 const NAV_ICON_SIZE = ICON_SIZE_PRESETS[0];
 
-const steps: ProgressStep[] = [
-  { id: 1, title: 'Account Setup', completed: true, active: false },
-  { id: 2, title: 'Sign Up', completed: true, active: false },
-  { id: 3, title: 'Plan Selection', completed: false, active: true },
-  { id: 4, title: 'Billing', completed: false, active: false },
-  { id: 5, title: 'Payment', completed: false, active: false },
-  { id: 6, title: 'Activation', completed: false, active: false },
-];
+const windowStart = ref(0);
 
-const currentIndex = ref(
-  windowStartForActive(
-    steps.findIndex((step) => step.active),
-    steps.length,
-    STEPPER_VISIBLE_COUNT,
-  ),
+watch(
+  [activeIndex, () => steps.length, () => visibleCount],
+  () => {
+    windowStart.value = windowStartForActive(activeIndex.value, steps.length, visibleCount);
+  },
+  { immediate: true },
 );
 
 const visibleSteps = computed(() =>
-  steps.slice(currentIndex.value, currentIndex.value + STEPPER_VISIBLE_COUNT),
+  steps.slice(windowStart.value, windowStart.value + visibleCount),
 );
 
-const progressPercentage = computed(() => stepProgressPercent(steps, STEP_PROGRESS_PARTIAL));
+const progress = computed(() => progressPercent(partialFill));
 
-const canPrev = computed(() =>
-  canShiftWindow(currentIndex.value, -1, steps.length, STEPPER_VISIBLE_COUNT),
-);
-
-const canNext = computed(() =>
-  canShiftWindow(currentIndex.value, 1, steps.length, STEPPER_VISIBLE_COUNT),
-);
-
-function titleClass(step: ProgressStep | null): string {
-  if (!step) {
-    return '';
+const progressText = computed(() => {
+  if (finished) {
+    return STEP_STATUS_LABEL.complete;
   }
-  if (step.completed) {
-    return STEP_TITLE_COMPLETED;
+  if (activeIndex.value < 0) {
+    return STEP_STATUS_LABEL.upcoming;
   }
-  if (step.active) {
-    return STEP_TITLE_ACTIVE;
-  }
-  return STEP_TITLE_PENDING;
-}
+  return stepPosition(activeIndex.value, steps.length);
+});
 
-function navigateNext() {
-  if (canNext.value) {
-    currentIndex.value += 1;
-  }
-}
+const canPrev = computed(() => canShiftWindow(windowStart.value, -1, steps.length, visibleCount));
+const canNext = computed(() => canShiftWindow(windowStart.value, 1, steps.length, visibleCount));
 
-function navigatePrev() {
-  if (canPrev.value) {
-    currentIndex.value -= 1;
+function shiftWindow(delta: number) {
+  if (canShiftWindow(windowStart.value, delta, steps.length, visibleCount)) {
+    windowStart.value += delta;
   }
 }
 </script>

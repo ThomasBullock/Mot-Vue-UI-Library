@@ -8,7 +8,7 @@
       class="step-check text-white"
     />
     <BaseIcon
-      v-else
+      v-else-if="icon"
       :name="icon"
       mode="mono"
       :size="STEP_ICON_SIZE"
@@ -19,15 +19,12 @@
 
 <script setup lang="ts">
 import BaseIcon from '@/components/ui/BaseIcon.vue';
-import { ICON_SIZE_PRESETS } from '@/constants/icons';
-import { STEP_COMPLETED_SURFACE } from '@/constants/ux-blocks';
+import { STEP_COMPLETED_SURFACE, STEP_ICON_SIZE } from '@/constants/ux-blocks';
 
 const { completed, icon } = defineProps<{
   completed: boolean;
-  icon: string;
+  icon: string | null;
 }>();
-
-const STEP_ICON_SIZE = ICON_SIZE_PRESETS[1];
 
 const CIRCLE_BASE =
   'z-10 flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border leading-none';

@@ -1,3 +1,5 @@
+import { STEP_STATUS_LABEL, type StepStatus } from '@/constants/ux-blocks';
+
 export type StepProgressInput = {
   completed: boolean;
   active?: boolean;
@@ -50,4 +52,12 @@ export function canShiftWindow(
 ): boolean {
   const next = start + delta;
   return next >= 0 && next + visibleCount <= total;
+}
+
+export function stepPosition(index: number, total: number): string {
+  return `Step ${index + 1} of ${total}`;
+}
+
+export function stepSrLabel(status: StepStatus, index: number, total: number): string {
+  return `${stepPosition(index, total)}, ${STEP_STATUS_LABEL[status]}`;
 }
