@@ -52,7 +52,7 @@ describe('BaseInput', () => {
 
     await user.type(getByRole('textbox'), 'x');
 
-    expect(emitted()['update:modelValue'].at(-1)).toEqual(['x']);
+    expect(emitted('update:modelValue').at(-1)).toEqual(['x']);
   });
 
   it('accumulates typed text through v-model (round-trip)', async () => {
@@ -71,15 +71,18 @@ describe('BaseInput', () => {
   });
 
   it('is disabled when the disabled attr is passed', () => {
-    const { getByRole } = render({ props: { disabled: true } });
+    const { getByRole } = render({ attrs: { disabled: true } });
 
     expect(getByRole('textbox')).toBeDisabled();
   });
 
   it('carries the aria-invalid styling classes and reflects the attr', () => {
-    const { getByRole } = render({ props: { 'aria-invalid': 'true' } });
+    const { getByRole } = render({ attrs: { 'aria-invalid': 'true' } });
     const input = getByRole('textbox');
 
+    // One side note: the aria-invalid test (line 79) only checks that the aria-invalid: classes exist in the
+    // static class string. That would pass with or without the attr. Only the final toHaveAttribute
+    // line actually tests fall-through.
     expect(input.getAttribute('class')).toContain('aria-invalid:border-danger-600');
     expect(input.getAttribute('class')).toContain('aria-invalid:ring-danger-600/20');
     expect(input.getAttribute('class')).toContain('focus-visible:aria-invalid:border-danger-600');
@@ -104,14 +107,14 @@ describe('BaseInput', () => {
   });
 
   it('falls the placeholder through', () => {
-    const { getByPlaceholderText } = render({ props: { placeholder: 'e.g. 25000' } });
+    const { getByPlaceholderText } = render({ attrs: { placeholder: 'e.g. 25000' } });
 
     expect(getByPlaceholderText('e.g. 25000')).toBeInTheDocument();
   });
 
   it('falls the data-testid through to the native input', () => {
     const { getByTestId } = render({
-      props: { 'data-testid': 'calculator.loan-form.amount-input' },
+      attrs: { 'data-testid': 'calculator.loan-form.amount-input' },
     });
 
     expect(getByTestId('calculator.loan-form.amount-input').tagName).toBe('INPUT');
