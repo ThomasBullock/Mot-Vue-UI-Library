@@ -6,7 +6,7 @@
       :disabled="!canPrev"
       @click="shiftWindow(-1)"
     >
-      <BaseIcon name="backward" mode="mono" :size="NAV_ICON_SIZE" />
+      <BaseIcon name="chevron-left" :size="NAV_ICON_SIZE" />
     </BaseButton>
 
     <div class="flex flex-1 flex-col gap-4">
@@ -59,7 +59,7 @@
       :disabled="!canNext"
       @click="shiftWindow(1)"
     >
-      <BaseIcon name="forward" mode="mono" :size="NAV_ICON_SIZE" />
+      <BaseIcon name="chevron-right" :size="NAV_ICON_SIZE" />
     </BaseButton>
   </nav>
 </template>

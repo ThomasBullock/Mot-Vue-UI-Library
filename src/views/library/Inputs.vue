@@ -43,13 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import BaseInput from "@/components/ui/BaseInput.vue";
-import BaseLabel from "@/components/ui/BaseLabel.vue";
-import BaseCurrencyInput from "@/components/ui/BaseCurrencyInput.vue";
-import { ref } from "vue";
+import BaseInput from '@/components/ui/BaseInput.vue';
+import BaseLabel from '@/components/ui/BaseLabel.vue';
+import BaseCurrencyInput from '@/components/ui/BaseCurrencyInput.vue';
+import { ref } from 'vue';
 
-const textInput = ref("");
-const invalidInput = ref("");
-const searchInput = ref("");
+const textInput = ref('');
+const invalidInput = ref('');
+const searchInput = ref('');
 const salary = ref(null);
 </script>

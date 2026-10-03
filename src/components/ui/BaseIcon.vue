@@ -19,7 +19,7 @@ import {
   type IconMode,
 } from '@/constants/icons';
 import { computed, watch } from 'vue';
-import { getIconGlyph } from './iconGlyphs';
+import { getIconGlyph, isMonoOnlyIcon } from './iconGlyphs';
 
 const {
   name,
@@ -68,6 +68,14 @@ const hostStyle = computed(() => {
     width: sizePx,
     height: sizePx,
   };
+
+  // Lucide glyphs: currentColor strokes only, so `color` is the sole knob.
+  if (isMonoOnlyIcon(name)) {
+    if (color) {
+      style.color = color;
+    }
+    return style;
+  }
 
   if (mode === 'mono') {
     if (color) {

@@ -82,12 +82,8 @@ describe('BaseInput', () => {
 
     expect(input.getAttribute('class')).toContain('aria-invalid:border-danger-600');
     expect(input.getAttribute('class')).toContain('aria-invalid:ring-danger-600/20');
-    expect(input.getAttribute('class')).toContain(
-      'focus-visible:aria-invalid:border-danger-600',
-    );
-    expect(input.getAttribute('class')).toContain(
-      'focus-visible:aria-invalid:ring-danger-600/20',
-    );
+    expect(input.getAttribute('class')).toContain('focus-visible:aria-invalid:border-danger-600');
+    expect(input.getAttribute('class')).toContain('focus-visible:aria-invalid:ring-danger-600/20');
     expect(input).toHaveAttribute('aria-invalid', 'true');
   });
 

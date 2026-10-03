@@ -13,19 +13,19 @@
   </div>
 </template>
 <script setup lang="ts">
-import BaseInput from "@/components/ui/BaseInput.vue";
+import BaseInput from '@/components/ui/BaseInput.vue';
 import {
   CURRENCY_ADORNMENT_CLASSES,
   CURRENCY_FIELD_WRAPPER_CLASSES,
   CURRENCY_INPUT_CLASSES,
-} from "@/constants/ui";
-import { formatCurrency, parseCurrency } from "@/utils/currency";
-import { ref, watch } from "vue";
+} from '@/constants/ui';
+import { formatCurrency, parseCurrency } from '@/utils/currency';
+import { ref, watch } from 'vue';
 
 defineOptions({ inheritAttrs: false });
 
 const model = defineModel<number | null>({ default: null });
-const emit = defineEmits(["blur"]);
+const emit = defineEmits(['blur']);
 
 /* Refs */
 const focused = ref(false);
@@ -43,7 +43,7 @@ function handleInput(event: Event) {
   }
   const value = parseCurrency(input.value);
   model.value = value;
-  const digits = value == null ? "" : String(value);
+  const digits = value == null ? '' : String(value);
   // Re-assert the field value so stripped characters actually disappear
   if (input?.value !== digits) {
     input.value = digits;
@@ -53,7 +53,7 @@ function handleInput(event: Event) {
 
 function handleBlur(event: Event) {
   display.value = formatCurrency(model.value);
-  emit("blur", event);
+  emit('blur', event);
 }
 
 watch(model, (value) => {

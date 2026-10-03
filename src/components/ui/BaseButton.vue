@@ -10,15 +10,15 @@ import {
   BUTTON_VARIANT_CLASSES,
   BUTTON_VARIANT_DEFAULT,
   type ButtonVariant,
-} from "@/constants/ui";
-import { computed } from "vue";
+} from '@/constants/ui';
+import { computed } from 'vue';
 
-const { type = "button", variant = BUTTON_VARIANT_DEFAULT } = defineProps<{
-  type?: "button" | "submit" | "reset";
+const { type = 'button', variant = BUTTON_VARIANT_DEFAULT } = defineProps<{
+  type?: 'button' | 'submit' | 'reset';
   variant?: ButtonVariant;
 }>();
 
 const classes = computed(() => {
-  return [BUTTON_BASE_CLASSES, BUTTON_VARIANT_CLASSES[variant]].join(" ");
+  return [BUTTON_BASE_CLASSES, BUTTON_VARIANT_CLASSES[variant]].join(' ');
 });
 </script>
