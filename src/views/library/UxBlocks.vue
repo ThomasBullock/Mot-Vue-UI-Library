@@ -14,10 +14,10 @@
         Finish
       </BaseButton>
       <BaseButton variant="secondary-outline" @click="reset">Reset</BaseButton>
-      <label class="flex items-center gap-2 text-sm text-grey-700">
-        <input v-model="clickable" type="checkbox" />
+      <BaseLabel class="flex items-center gap-2" for="linear">
+        <BaseCheckbox v-model="clickable" id="linear" />
         Clickable steps (linear)
-      </label>
+      </BaseLabel>
     </div>
 
     <article v-for="demo in DEMOS" :key="demo.title" class="mt-10">
@@ -48,6 +48,8 @@
 
 <script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue';
+import BaseCheckbox from '@/components/ui/BaseCheckbox.vue';
+import BaseLabel from '@/components/ui/BaseLabel.vue';
 import CircleStepper from '@/components/ux-blocks/steppers/CircleStepper.vue';
 import HorizontalPanels from '@/components/ux-blocks/steppers/HorizontalPanels.vue';
 import PanelsWithBorders from '@/components/ux-blocks/steppers/PanelsWithBorders.vue';

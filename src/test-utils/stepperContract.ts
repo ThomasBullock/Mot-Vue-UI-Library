@@ -114,5 +114,26 @@ export function describeStepperContract(
 
       expect(result.emitted()['update:modelValue']?.at(-1)).toEqual([later.id]);
     });
+
+    it('clickable toggles step buttons on and off', async () => {
+      const user = userEvent.setup();
+      const result = render({ clickable: false });
+      const buttons = () =>
+        within(nav(result))
+          .queryAllByRole('listitem')
+          .flatMap((item) => within(item).queryAllByRole('button'));
+
+      expect(buttons()).toHaveLength(0);
+
+      await result.rerender({ steps, modelValue: current.id, clickable: true });
+
+      await user.click(stepButton(result, steps[0]!));
+
+      expect(result.emitted()['update:modelValue']?.at(-1)).toEqual([steps[0]!.id]);
+
+      await result.rerender({ steps, modelValue: current.id, clickable: false });
+
+      expect(buttons()).toHaveLength(0);
+    });
   });
 }
