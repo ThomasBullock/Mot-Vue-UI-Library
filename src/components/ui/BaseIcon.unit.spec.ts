@@ -80,6 +80,25 @@ describe('BaseIcon', () => {
     expect(host(container)?.style.getPropertyValue('--color1')).toBe('var(--color-danger-500)');
   });
 
+  it('leaves mono-only icons uncoloured and palette-free by default', () => {
+    const { container } = renderWithPlugins(BaseIcon, {
+      props: { name: 'chevron-right' },
+    });
+
+    const el = host(container);
+    expect(el).toBeTruthy();
+    expect(el?.style.color).toBe('');
+    expect(el?.style.getPropertyValue('--color1')).toBe('');
+  });
+
+  it('applies the color prop to mono-only icons', () => {
+    const { container } = renderWithPlugins(BaseIcon, {
+      props: { name: 'chevron-right', color: 'rgb(30, 33, 212)' },
+    });
+
+    expect(host(container)?.style.color).toBe('rgb(30, 33, 212)');
+  });
+
   it('renders nothing for an unknown name', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
 

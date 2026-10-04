@@ -10,7 +10,12 @@
       <code class="font-mono text-grey-800">color0</code>
       /
       <code class="font-mono text-grey-800">color3</code>
-      fills are unused.
+      fills are unused. Lucide glyphs are mono-only: stroke
+      <code class="font-mono text-grey-800">currentColor</code>, set via parent
+      <code class="font-mono text-grey-800">color</code>
+      or the
+      <code class="font-mono text-grey-800">color</code>
+      prop.
     </p>
     <p class="mt-2 text-sm text-grey-500">
       Icons by
@@ -20,7 +25,16 @@
         rel="noopener noreferrer"
         target="_blank"
       >
-        Keyamoon / IcoMoon </a
+        Keyamoon / IcoMoon
+      </a>
+      and
+      <a
+        class="font-medium text-grey-700 underline decoration-grey-300 underline-offset-2 hover:text-grey-900"
+        href="https://lucide.dev"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Lucide (ISC) </a
       >.
     </p>
 
@@ -65,7 +79,7 @@
 
     <article class="mt-10">
       <h3 class="text-lg font-semibold text-grey-900">All icons</h3>
-      <p class="mt-1 text-sm text-grey-500">Colour on the left, mono on the right.</p>
+      <p class="mt-1 text-sm text-grey-500">Filter and preview size apply to both sets.</p>
 
       <div class="mt-4 flex flex-wrap items-end gap-6">
         <div class="w-64">
@@ -92,21 +106,22 @@
         </div>
       </div>
 
-      <p class="mt-3 text-sm text-grey-500">{{ filteredNames.length }} / {{ ICON_NAMES.length }}</p>
+      <template v-for="set in iconSets" :key="set.title">
+        <h4 class="mt-8 font-semibold text-grey-900">{{ set.title }}</h4>
+        <p class="mt-1 text-sm text-grey-500">
+          {{ set.hint }} · {{ set.filtered.length }} / {{ set.names.length }}
+        </p>
 
-      <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-        <li
-          v-for="iconName in filteredNames"
-          :key="iconName"
-          class="rounded-md border border-grey-200 bg-white p-3"
-        >
-          <div class="flex items-center justify-center gap-4 text-grey-800">
-            <BaseIcon :name="iconName" :size="previewSize" />
-            <BaseIcon :name="iconName" mode="mono" :size="previewSize" />
-          </div>
-          <p class="mt-2 text-center font-mono text-xs text-grey-600">{{ iconName }}</p>
-        </li>
-      </ul>
+        <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <IconTile
+            v-for="iconName in set.filtered"
+            :key="iconName"
+            :name="iconName"
+            :size="previewSize"
+            :mono-only="set.monoOnly"
+          />
+        </ul>
+      </template>
     </article>
   </section>
 </template>
@@ -116,8 +131,9 @@ import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseIcon from '@/components/ui/BaseIcon.vue';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import BaseLabel from '@/components/ui/BaseLabel.vue';
-import { ICON_NAMES } from '@/components/ui/iconGlyphs';
+import { ICON_MONO_NAMES, ICON_NAMES } from '@/components/ui/iconGlyphs';
 import { ICON_SIZE_DEFAULT, ICON_SIZE_PRESETS } from '@/constants/icons';
+import IconTile from '@/views/library/IconTile.vue';
 import { computed, ref } from 'vue';
 
 const PREVIEW_SIZE_MIN = 12;
@@ -133,11 +149,28 @@ const INHERIT_SWATCHES = [
 const query = ref('');
 const previewSize = ref(ICON_SIZE_DEFAULT);
 
-const filteredNames = computed(() => {
+function filterNames(names: readonly string[]): readonly string[] {
   const needle = query.value.trim().toLowerCase();
   if (!needle) {
-    return ICON_NAMES;
+    return names;
   }
-  return ICON_NAMES.filter((iconName) => iconName.includes(needle));
-});
+  return names.filter((iconName) => iconName.includes(needle));
+}
+
+const iconSets = computed(() => [
+  {
+    title: 'IcoMoon',
+    hint: 'Colour on the left, mono on the right',
+    names: ICON_NAMES,
+    filtered: filterNames(ICON_NAMES),
+    monoOnly: false,
+  },
+  {
+    title: 'Lucide (mono only)',
+    hint: 'Inherits parent colour',
+    names: ICON_MONO_NAMES,
+    filtered: filterNames(ICON_MONO_NAMES),
+    monoOnly: true,
+  },
+]);
 </script>

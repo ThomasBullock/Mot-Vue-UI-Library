@@ -84,3 +84,18 @@ export const CURRENCY_FIELD_WRAPPER_CLASSES = 'relative';
 export const CURRENCY_ADORNMENT_CLASSES =
   'pointer-events-none absolute inset-y-0 left-3 flex items-center pt-px text-sm text-grey-500';
 export const CURRENCY_INPUT_CLASSES = 'pl-7 tabular-nums';
+
+// Native checkbox = shared control tokens on a 16px box (shadcn size-4). The
+// tick is a sibling SVG; `peer` / `peer-checked` show it without covering the
+// input, which stays the hit target. Invalid styles compose in last.
+export const CHECKBOX_ROOT_CLASSES = 'relative inline-flex';
+export const CHECKBOX_BASE_CLASSES = [
+  'peer size-4 shrink-0 appearance-none bg-white border-grey-300 transition-colors',
+  'checked:border-primary-700 checked:bg-primary-600',
+  CONTROL_BASE_CLASSES,
+  CONTROL_FOCUS_CLASSES,
+  CONTROL_DISABLED_CLASSES,
+  INPUT_INVALID_CLASSES,
+].join(' ');
+export const CHECKBOX_TICK_CLASSES =
+  'pointer-events-none absolute inset-0 m-auto hidden size-3 text-white peer-checked:block peer-disabled:opacity-50';

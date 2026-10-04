@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { LABEL_BASE_CLASSES } from "@/constants/ui";
+import { LABEL_BASE_CLASSES } from '@/constants/ui';
 
 defineOptions({
-  name: "BaseLabel",
+  name: 'BaseLabel',
 });
 </script>

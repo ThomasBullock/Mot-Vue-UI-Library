@@ -32,5 +32,6 @@ const NAV_ITEMS = [
   { name: 'Inputs', label: 'Input' },
   { name: 'Icons', label: 'Icons' },
   { name: 'Slots', label: 'Slots' },
+  { name: 'UxBlocks', label: 'UX Blocks' },
 ] as const;
 </script>

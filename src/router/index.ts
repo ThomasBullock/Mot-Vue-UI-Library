@@ -47,6 +47,12 @@ const router = createRouter({
           component: () => import('@/views/library/Slots.vue'),
           meta: { title: 'Design: Slots | Mot UI' },
         },
+        {
+          path: 'ux-blocks',
+          name: 'UxBlocks',
+          component: () => import('@/views/library/UxBlocks.vue'),
+          meta: { title: 'Design: UX Blocks | Mot UI' },
+        },
       ],
     },
   ],

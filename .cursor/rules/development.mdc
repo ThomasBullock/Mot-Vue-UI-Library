@@ -16,6 +16,10 @@ Be extremely concise. Sacrifice grammar for concision. Applies to all interactio
 - Match surrounding code: `<script setup>`, existing naming, comment density, and idioms.
 - **Prefer `null` over `undefined`** for an intentional "no value" (prop defaults, computed fallbacks, attr bindings — Vue removes the attr for either). Avoid `undefined` as an explicit value.
 
+## Formatting
+
+oxfmt only (`.oxfmtrc.json`), whole repo, no ignores. Run `npm run format`; editor format-on-save uses the same (`.vscode/settings.json`). No Prettier.
+
 ## Playwright / browser MCP
 
 **Close the browser when done.** Do not leave Playwright or browser MCP sessions open after a task. Always call close / tear down the browser when verification or automation finishes.
